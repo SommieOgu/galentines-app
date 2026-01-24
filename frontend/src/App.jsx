@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfig";
 import { signUp, login, logout } from "./firebase/auth";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Landing from './pages/Landing';
+//import Home from './pages/Home';
 import './App.css'
 
 function App() {
@@ -33,37 +36,15 @@ function App() {
   if (loading) {
     return <p>Loading...</p>;
   }
-  
+
   console.log("Firebase auth instance:", auth);
-  return (
+  return ( 
     <>
-      <div>
-         {user ? (
-      <>
-        <p>Logged in as {user.email}</p>
-        <button onClick={logout}>Logout</button>
-      </>
-    ) : (
-      <>
-        <p>Not logged in</p>
-        <button onClick={() => signUp("test@email.com", "password123")}>
-          Sign Up
-        </button>
-        <button
-          onClick={() => login("test@email.com", "password123")}
-        >
-          Login
-        </button>
-      </>
-    )} 
-      </div>
-       <div>
-      {user ? (
-        <p>Logged in as {user.email}</p>
-      ) : (
-        <p>Not logged in</p>
-      )}
-    </div>
+     <Router>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+      </Routes>
+    </Router>
     </>
   );
 }
