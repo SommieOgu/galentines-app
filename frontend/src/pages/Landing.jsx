@@ -1,4 +1,5 @@
 import './Landing.css';
+import RainingHearts from '../components/RainingHearts';
 
 function Landing() {
   return (
@@ -11,9 +12,12 @@ function Landing() {
                 <button className="nav-btn outline">Sign Up</button>
             </div>
             </nav>
+            </div>
+            <div className="hero-section">
+            <div className="bg-layer"></div>     {/* BACKGROUND */}
+            <RainingHearts />
         </div>
     </div>
-
   );
 }
 
