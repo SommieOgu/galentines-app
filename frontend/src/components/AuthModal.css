@@ -1,0 +1,54 @@
+/* The dim background */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  background: rgba(255, 192, 203, 0.25); /* soft pink dim */
+  backdrop-filter: blur(4px); /* frosted glass effect */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 2000;
+}
+
+/* The form box */
+.modal-content {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 18px;
+  width: 350px;
+  max-width: 90%;
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+  position: relative;
+
+  animation: popIn 0.25s ease-out;
+}
+
+/* Close button */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  border: none;
+  background: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+/* Cute pop animation */
+@keyframes popIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  } 
+}
