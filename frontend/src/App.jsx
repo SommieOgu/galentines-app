@@ -17,15 +17,12 @@ function App() {
 
    useEffect(() => {
     // Firebase Listener once page load, login and logout
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        console.log("User is logged in:", user.email);
-        setUser(user);
-      } else {
-        console.log("No user logged in");
-        setUser(null);
-      }
-
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+     
+        console.log("User is logged in:");
+        setUser(currentUser);
+    
+       console.log("No user logged in");
        setLoading(false);
     });
 
@@ -42,7 +39,7 @@ function App() {
     <>
      <Router>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Landing user={user} />} />
       </Routes>
     </Router>
     </>

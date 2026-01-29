@@ -1,21 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { logout } from "../firebase/auth";
+import { useNavigate } from "react-router-dom";
 import './Landing.css';
 import RainingHearts from '../components/RainingHearts';
 import AuthModal from '../components/AuthModal';
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
 
-function Landing() {
+function Landing({ user }) { //Knows who the user is
    // Controls popup
-  const [modalType, setModalType] = useState(null);
-  return (
+   const [modalType, setModalType] = useState(null);
+
+    // Used to redirect after successful signup
+   const navigate = useNavigate();
+
+   return (
     <div className="landing-page">
     <div className="nav-container">
             <nav className="navbar">
             <div className="nav-left"> Happy Valentine's Day Love's💕</div>
             <div className="nav-right">
-                <button className="nav-btn" onClick={() => setModalType('login')}>Login</button>
-                <button className="nav-btn outline" onClick={() => setModalType('signup')}>Sign Up</button>
+              {user ? (<button onClick={logout}>Logout</button> ) : (
+              <>
+              <button  onClick={() => setModalType('login')}>Login</button>
+              <button  onClick={() => setModalType('signup')}>Sign Up</button>
+              </>
+              )}
             </div>
             </nav>
             </div>
