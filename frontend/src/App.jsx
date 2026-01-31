@@ -4,6 +4,7 @@ import { auth } from "./firebase/firebaseConfig";
 import { signUp, login, logout } from "./firebase/auth";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
+import ProfileSetup from "./pages/ProfileSetup";
 //import Home from './pages/Home';
 import './App.css'
 
@@ -22,7 +23,7 @@ function App() {
         console.log("User is logged in:");
         setUser(currentUser);
     
-       console.log("No user logged in");
+       // console.log("No user logged in");
        setLoading(false);
     });
 
@@ -40,6 +41,7 @@ function App() {
      <Router>
       <Routes>
         <Route path="/" element={<Landing user={user} />} />
+        <Route path="/profile-setup" element={<ProfileSetup user={user} />} />
       </Routes>
     </Router>
     </>

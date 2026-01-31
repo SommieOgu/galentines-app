@@ -6,6 +6,7 @@ import RainingHearts from '../components/RainingHearts';
 import AuthModal from '../components/AuthModal';
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
+import Navbar from '../components/NavBar';
 
 function Landing({ user }) { //Knows who the user is
    // Controls popup
@@ -14,20 +15,20 @@ function Landing({ user }) { //Knows who the user is
     // Used to redirect after successful signup
    const navigate = useNavigate();
 
+   const handleLogout = async () => {
+      await logout();
+      navigate("/"); // optional, keeps you on landing
+    };
+
    return (
     <div className="landing-page">
     <div className="nav-container">
-            <nav className="navbar">
-            <div className="nav-left"> Happy Valentine's Day Love's💕</div>
-            <div className="nav-right">
-              {user ? (<button onClick={logout}>Logout</button> ) : (
-              <>
-              <button  onClick={() => setModalType('login')}>Login</button>
-              <button  onClick={() => setModalType('signup')}>Sign Up</button>
-              </>
-              )}
-            </div>
-            </nav>
+            <Navbar
+              user={user}
+              login={() => setModalType('login')}
+              signup={() => setModalType('signup')}
+              Logout={handleLogout}
+            />
             </div>
             <div className="hero-section">
             <div className="bg-layer"></div>     {/* BACKGROUND */}
