@@ -11,6 +11,7 @@ function SignupForm(){
   const [password, setPassword] = useState("");
    // Stores confirm password input
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   // Used to redirect after successful signup
   const navigate = useNavigate();
 
@@ -35,7 +36,8 @@ function SignupForm(){
         displayName: "",
         bio: "",
         theme: "default",
-        badges: []
+        badges: [],
+        profileComplete: false
       });
 
       console.log("Account + profile created");
@@ -46,10 +48,10 @@ function SignupForm(){
     } catch (error) {
       console.error("Signup error:", error.message);
       alert(error.message);
+    }finally {
+      setLoading(false);
     }
   };
-
-  
 
     return(
         <form className='auth-form' onSubmit={handleSubmit}>

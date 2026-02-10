@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react'
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/firebaseConfig";
-import { signUp, login, logout } from "./firebase/auth";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Landing from './pages/Landing';
 import ProfileSetup from "./pages/ProfileSetup";
-//import Home from './pages/Home';
+import Home from './pages/Home'
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase/firebaseConfig";
+import { Routes, Route, Navigate } from 'react-router-dom';
+
 import './App.css'
 
 function App() {
   /* Holds the currently logged-in Firebase user
   null = not logged in */
   const [user, setUser] = useState(null);
+  
+
 
   //Used to prevent UI changes during state checks
   const [loading, setLoading] = useState(true);
@@ -21,7 +25,7 @@ function App() {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
      
         console.log("User is logged in:");
-        setUser(currentUser);
+        setUser(currentUser || null);
     
        // console.log("No user logged in");
        setLoading(false);
@@ -38,12 +42,15 @@ function App() {
   console.log("Firebase auth instance:", auth);
   return ( 
     <>
-     <Router>
       <Routes>
-        <Route path="/" element={<Landing user={user} />} />
-        <Route path="/profile-setup" element={<ProfileSetup user={user} />} />
+        <Route path="/" element={<Landing />} />
+        <Route path="/profile-setup" element={ user ? <ProfileSetup user={user} /> : (
+            <Navigate to="/" replace />
+          )}/>
+        <Route path="/home" element={  user ? <Home user={user} /> : (
+            <Navigate to="/" replace />
+          )}/>
       </Routes>
-    </Router>
     </>
   );
 }
